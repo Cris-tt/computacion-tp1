@@ -1,8 +1,8 @@
 let caminantes = [];
 
 function setup() {
-  createCanvas(1000, 500);
-  background(200);
+  createCanvas(1200 , 700);
+  background(239, 237, 233);
 
   for (let i = 0; i < random(20,25); i++) {
 
