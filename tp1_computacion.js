@@ -10,7 +10,6 @@ function setup() {
       new Caminante()
       );
   }
-
   c= new Caminante;
 }
 
@@ -22,4 +21,25 @@ function draw() {
     c.dibujar();
 
   }
+}
+function mousePressed() {
+
+  for (let c of caminantes) {
+
+    if (c.estado === "onda-alta") {
+
+      c.estado = "onda-baja";
+
+    } else if (c.estado === "onda-baja") {
+
+      c.estado = "curva-circular";
+
+    } else {
+
+      c.estado = "onda-alta";
+
+    }
+
+  }
+
 }
