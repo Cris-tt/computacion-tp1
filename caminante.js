@@ -9,23 +9,30 @@ class Caminante {
 
     // valores inicales para movimiento
     this.x = 0;
-    this.y = random(height * 0.3, height * 0.7);
-    this.vel = 2.5;
+    this.y = random(height * 0.2, height * 0.8);
+    this.vel = 1.8;
 
     // Para dibujar la línea, guardamos la posición anterior.
     this.xAnterior = this.x
     this.yAnterior = this.y
 
 
-    //amplitud y frecuencia para variar la forma de la onda
-    this.amplitud = 100;
-    this.frecuencia = 0.05;
-
     this.amplitudAlta = random(80, 150);
-    this.frecuenciaAlta = random(0.02, 0.08);
+    this.frecuenciaAlta = random(0.01, 0.05);
 
     this.amplitudBaja = random(10, 50);
-    this.frecuenciaBaja = random(0.005, 0.02);
+    this.frecuenciaBaja = random(0.020, 0.025);
+
+
+    // Valores actuales
+    this.amplitudActual = this.amplitudAlta;
+    this.frecuenciaActual = this.frecuenciaAlta;
+
+    // Valores objetivo
+    this.amplitudObjetivo = this.amplitudAlta;
+    this.frecuenciaObjetivo = this.frecuenciaAlta;
+
+
 
     // Fases de las ondas
     this.fase1 = random(TWO_PI);
@@ -52,8 +59,10 @@ class Caminante {
   }
 
   dibujar() {
-    stroke(this.colorLinea, this.opacidad)
+    console.log(this.frecuenciaActual);
+    console.log(this.x * this.frecuenciaActual);
 
+    stroke(this.colorLinea, this.opacidad)
     strokeWeight(this.grosor);
 
     line(this.xAnterior, this.yAnterior, this.x, this.y);
@@ -62,32 +71,55 @@ class Caminante {
     this.yAnterior = this.y;
   }
 
+  
+
   actualizar() {
 
-    //estados 
     if (this.estado === "onda-alta") {
 
-      this.amplitud = this.amplitudAlta;
-      this.frecuencia = this.frecuenciaAlta;
-      this.mover();
+      this.amplitudObjetivo = this.amplitudAlta;
+      this.frecuenciaObjetivo = this.frecuenciaAlta;
+
       this.cx = this.x;
       this.cy = this.y;
 
-    } else if (this.estado === "onda-baja") {
+    }
+    else if (this.estado === "onda-baja") {
 
-      this.amplitud = this.amplitudBaja;
-      this.frecuencia = this.frecuenciaBaja;
-      this.mover();
+      this.amplitudObjetivo = this.amplitudBaja;
+      this.frecuenciaObjetivo = this.frecuenciaBaja;
+
       this.cx = this.x;
       this.cy = this.y;
 
-    } else if (this.estado === "curva-circular") {
+    }
+    else if (this.estado === "curva-circular") {
 
       this.angulo += this.velAngular;
 
       this.x = this.cx + this.radio * cos(this.angulo);
       this.y = this.cy + this.radio * sin(this.angulo);
-      this.radio += random(1, 2);   // espiral hacia afuera
+
+      this.radio += random(1, 2);
+    }
+
+    if (this.estado !== "curva-circular") {
+
+      this.amplitudActual =
+        lerp(
+          this.amplitudActual,
+          this.amplitudObjetivo,
+          0.03
+        );
+
+      this.frecuenciaActual =
+        lerp(
+          this.frecuenciaActual,
+          this.frecuenciaObjetivo,
+          0.03
+        );
+
+      this.mover();
     }
 
 
@@ -101,11 +133,11 @@ class Caminante {
     this.offsetFreq += 0.003;
 
     let ampActual =
-      this.amplitud *
+      this.amplitudActual *
       map(noise(this.offsetAmp), 0, 1, 0.8, 1.2);
 
     let freqActual =
-      this.frecuencia *
+      this.frecuenciaActual *
       map(noise(this.offsetFreq), 0, 1, 0.8, 1.2);
 
     this.y =
@@ -122,4 +154,34 @@ class Caminante {
 
   }
 
+  iniciarCurvaCircular() {
+
+    let dx = this.x - this.xAnterior;
+    let dy = this.y - this.yAnterior;
+
+    let dir = atan2(dy, dx);
+
+    this.radio = random(100, 120);
+
+    let lado = random() > 0.5 ? 1 : -1;
+
+    this.cx =
+      this.x +
+      cos(dir + lado * HALF_PI) * this.radio;
+
+    this.cy =
+      this.y +
+      sin(dir + lado * HALF_PI) * this.radio;
+
+    this.angulo = atan2(
+      this.y - this.cy,
+      this.x - this.cx
+    );
+
+    this.velAngular =
+      random(0.02, 0.06) * lado;
+  }
+
 }
+
+

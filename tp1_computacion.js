@@ -4,7 +4,7 @@ function setup() {
   createCanvas(1200 , 700);
   background(239, 237, 233);
 
-  for (let i = 0; i < random(20,25); i++) {
+  for (let i = 0; i < random(5,10); i++) {
 
     caminantes.push(
       new Caminante()
@@ -33,6 +33,7 @@ function mousePressed() {
     } else if (c.estado === "onda-baja") {
 
       c.estado = "curva-circular";
+        c.iniciarCurvaCircular();
 
     } else {
 
