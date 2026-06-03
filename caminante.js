@@ -93,15 +93,15 @@ class Caminante {
       this.cy = this.y;
 
     }
-    else if (this.estado === "curva-circular") {
+    // else if (this.estado === "curva-circular") {
 
-      this.angulo += this.velAngular;
+    //   this.angulo += this.velAngular;
 
-      this.x = this.cx + this.radio * cos(this.angulo);
-      this.y = this.cy + this.radio * sin(this.angulo);
+    //   this.x = this.cx + this.radio * cos(this.angulo);
+    //   this.y = this.cy + this.radio * sin(this.angulo);
 
-      this.radio += random(1, 2);
-    }
+    //   this.radio += random(1, 2);
+    // }
 
     if (this.estado !== "curva-circular") {
 
@@ -154,33 +154,33 @@ class Caminante {
 
   }
 
-  iniciarCurvaCircular() {
+//   iniciarCurvaCircular() {
 
-    let dx = this.x - this.xAnterior;
-    let dy = this.y - this.yAnterior;
+//     let dx = this.x - this.xAnterior;
+//     let dy = this.y - this.yAnterior;
 
-    let dir = atan2(dy, dx);
+//     let dir = atan2(dy, dx);
 
-    this.radio = random(100, 120);
+//     this.radio = random(100, 120);
 
-    let lado = random() > 0.5 ? 1 : -1;
+//     let lado = random() > 0.5 ? 1 : -1;
 
-    this.cx =
-      this.x +
-      cos(dir + lado * HALF_PI) * this.radio;
+//     this.cx =
+//       this.x +
+//       cos(dir + lado * HALF_PI) * this.radio;
 
-    this.cy =
-      this.y +
-      sin(dir + lado * HALF_PI) * this.radio;
+//     this.cy =
+//       this.y +
+//       sin(dir + lado * HALF_PI) * this.radio;
 
-    this.angulo = atan2(
-      this.y - this.cy,
-      this.x - this.cx
-    );
+//     this.angulo = atan2(
+//       this.y - this.cy,
+//       this.x - this.cx
+//     );
 
-    this.velAngular =
-      random(0.02, 0.06) * lado;
-  }
+//     this.velAngular =
+//       random(0.02, 0.06) * lado;
+//   }
 
 }
 
