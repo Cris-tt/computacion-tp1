@@ -66,12 +66,9 @@ class Caminante {
 
 
     //ejes para agrupar caminantes
-    this.banda = random(bandas);
+    this.banda = random(bandasActivas);
     this.subBandas = random(subBandas);
-
-    let bandasElegidas = shuffle([...bandasActivas]);
-    this.banda1 = bandasElegidas[0];
-    this.banda2 = bandasElegidas[1];
+    
 
     // Guarda la posición original
     this.yOriginal = this.y;
@@ -133,8 +130,7 @@ class Caminante {
   mover() {
 
     this.x += this.vel;
-
-
+    
     this.offsetAmp += 0.003;
     this.offsetFreq += 0.003;
 
@@ -182,12 +178,7 @@ class Caminante {
       let objetivo =
         this.banda +
         this.subBandas;
-      if (this.x < 400) {
-        objetivo = this.banda1;
-      } else {
-        objetivo = this.banda2;
-      }
-
+    
       this.yBase = lerp(
         this.yBase,
         objetivo,
