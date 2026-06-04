@@ -13,7 +13,7 @@ class Caminante {
     this.colorLinea = random(50, 100);
     this.opacidad = random(70, 255);
 
-    this.estado = "onda-alta";
+    this.estado = "quieto"; // "quieto", "onda-alta", "onda-baja"
 
     // valores inicales para movimiento
     this.x = 0;
@@ -87,8 +87,11 @@ class Caminante {
 
 
   actualizar() {
-
-    if (this.estado === "onda-alta") {
+    if (this.estado === "quieto"){
+      this.amplitudObjetivo = 0;
+      this.frecuenciaObjetivo = 0;
+    }
+    else if (this.estado === "onda-alta") {
 
       this.amplitudObjetivo = this.amplitudAlta;
       this.frecuenciaObjetivo = this.frecuenciaAlta;
@@ -130,7 +133,7 @@ class Caminante {
   mover() {
 
     this.x += this.vel;
-    
+
     this.offsetAmp += 0.003;
     this.offsetFreq += 0.003;
 

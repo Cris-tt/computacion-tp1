@@ -51,9 +51,9 @@ function mousePressed() {
 
   for (let c of caminantes) {
 
-    if (c.estado === "onda-alta") {
+    if (c.estado === "quieto") {
 
-      c.estado = "onda-baja";
+      c.estado = "onda-alta";
 
       // } else if (c.estado === "onda-baja") {
 
@@ -63,7 +63,7 @@ function mousePressed() {
       // } 
     } else {
 
-      c.estado = "onda-alta";
+      c.estado = "onda-baja";
 
     }
 
