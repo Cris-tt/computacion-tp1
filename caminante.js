@@ -1,6 +1,7 @@
 class Caminante {
 
   constructor() {
+    console.log(this.banda);
     this.grosor = random(3, 5);
     this.colorLinea = random(50, 100);
     this.opacidad = random(70, 255);
@@ -16,12 +17,12 @@ class Caminante {
     this.xAnterior = this.x
     this.yAnterior = this.y
 
-
-    this.amplitudAlta = random(80, 150);
+    // Parámetros para las ondas
+    this.amplitudAlta = random(60, 75);
     this.frecuenciaAlta = random(0.01, 0.05);
 
     this.amplitudBaja = random(10, 50);
-    this.frecuenciaBaja = random(0.020, 0.025);
+    this.frecuenciaBaja = random(0.030, 0.05);
 
 
     // Valores actuales
@@ -55,13 +56,14 @@ class Caminante {
 
     //linea de base para onda
     this.yBase = this.y;
+    this.yOriginal = this.y;  //para volver a la posición original después de la banda
+
+    //ejes para agrupar caminantes
+    this.banda = random(bandas);
 
   }
 
   dibujar() {
-    console.log(this.frecuenciaActual);
-    console.log(this.x * this.frecuenciaActual);
-
     stroke(this.colorLinea, this.opacidad)
     strokeWeight(this.grosor);
 
@@ -71,7 +73,7 @@ class Caminante {
     this.yAnterior = this.y;
   }
 
-  
+
 
   actualizar() {
 
@@ -92,16 +94,37 @@ class Caminante {
       this.cx = this.x;
       this.cy = this.y;
 
+      if (
+        (this.x > 200 && this.x < 400) ||
+        (this.x > 700 && this.x < 900)
+      ) {
+
+        this.yBase = lerp(
+          this.yBase,
+          this.banda,
+          0.03
+        );
+
+      } else {
+
+        this.yBase = lerp(
+          this.yBase,
+          this.yOriginal,
+          0.01
+        );
+
+      }
+
     }
-    // else if (this.estado === "curva-circular") {
+    else if (this.estado === "curva-circular") {
 
-    //   this.angulo += this.velAngular;
+      this.angulo += this.velAngular;
 
-    //   this.x = this.cx + this.radio * cos(this.angulo);
-    //   this.y = this.cy + this.radio * sin(this.angulo);
+      this.x = this.cx + this.radio * cos(this.angulo);
+      this.y = this.cy + this.radio * sin(this.angulo);
 
-    //   this.radio += random(1, 2);
-    // }
+      this.radio += random(1, 2);
+    }
 
     if (this.estado !== "curva-circular") {
 
@@ -154,33 +177,36 @@ class Caminante {
 
   }
 
-//   iniciarCurvaCircular() {
 
-//     let dx = this.x - this.xAnterior;
-//     let dy = this.y - this.yAnterior;
 
-//     let dir = atan2(dy, dx);
 
-//     this.radio = random(100, 120);
+  //   iniciarCurvaCircular() {
 
-//     let lado = random() > 0.5 ? 1 : -1;
+  //     let dx = this.x - this.xAnterior;
+  //     let dy = this.y - this.yAnterior;
 
-//     this.cx =
-//       this.x +
-//       cos(dir + lado * HALF_PI) * this.radio;
+  //     let dir = atan2(dy, dx);
 
-//     this.cy =
-//       this.y +
-//       sin(dir + lado * HALF_PI) * this.radio;
+  //     this.radio = random(100, 120);
 
-//     this.angulo = atan2(
-//       this.y - this.cy,
-//       this.x - this.cx
-//     );
+  //     let lado = random() > 0.5 ? 1 : -1;
 
-//     this.velAngular =
-//       random(0.02, 0.06) * lado;
-//   }
+  //     this.cx =
+  //       this.x +
+  //       cos(dir + lado * HALF_PI) * this.radio;
+
+  //     this.cy =
+  //       this.y +
+  //       sin(dir + lado * HALF_PI) * this.radio;
+
+  //     this.angulo = atan2(
+  //       this.y - this.cy,
+  //       this.x - this.cx
+  //     );
+
+  //     this.velAngular =
+  //       random(0.02, 0.06) * lado;
+  //   }
 
 }
 

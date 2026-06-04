@@ -1,8 +1,14 @@
 let caminantes = [];
+let bandas = [];
 
 function setup() {
   createCanvas(1200 , 700);
   background(239, 237, 233);
+
+  bandas = [
+  height * 0.25,
+  height * 0.65
+ ];
 
   for (let i = 0; i < random(20,25); i++) {
 
@@ -11,6 +17,7 @@ function setup() {
       );
   }
   c= new Caminante;
+ 
 }
 
 
