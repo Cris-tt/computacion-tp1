@@ -64,9 +64,14 @@ class Caminante {
     //linea de base para onda
     this.yBase = this.y;
 
+
     //ejes para agrupar caminantes
     this.banda = random(bandas);
     this.subBandas = random(subBandas);
+
+    let bandasElegidas = shuffle([...bandasActivas]);
+    this.banda1 = bandasElegidas[0];
+    this.banda2 = bandasElegidas[1];
 
     // Guarda la posición original
     this.yOriginal = this.y;
@@ -99,7 +104,7 @@ class Caminante {
       this.frecuenciaObjetivo = this.frecuenciaBaja;
       this.dividirEnBandas();
     }
-      
+
 
     if (this.estado === "onda-alta" || this.estado === "onda-baja") {
 
@@ -124,7 +129,7 @@ class Caminante {
   }
 
 
-  
+
   mover() {
 
     this.x += this.vel;
@@ -177,6 +182,11 @@ class Caminante {
       let objetivo =
         this.banda +
         this.subBandas;
+      if (this.x < 400) {
+        objetivo = this.banda1;
+      } else {
+        objetivo = this.banda2;
+      }
 
       this.yBase = lerp(
         this.yBase,
@@ -212,39 +222,39 @@ class Caminante {
 
 //   iniciarCurvaCircular() {
 
-  //     let dx = this.x - this.xAnterior;
-  //     let dy = this.y - this.yAnterior;
+//     let dx = this.x - this.xAnterior;
+//     let dy = this.y - this.yAnterior;
 
-  //     let dir = atan2(dy, dx);
+//     let dir = atan2(dy, dx);
 
-  //     this.radio = random(100, 120);
+//     this.radio = random(100, 120);
 
-  //     let lado = random() > 0.5 ? 1 : -1;
+//     let lado = random() > 0.5 ? 1 : -1;
 
-  //     this.cx =
-  //       this.x +
-  //       cos(dir + lado * HALF_PI) * this.radio;
+//     this.cx =
+//       this.x +
+//       cos(dir + lado * HALF_PI) * this.radio;
 
-  //     this.cy =
-  //       this.y +
-  //       sin(dir + lado * HALF_PI) * this.radio;
+//     this.cy =
+//       this.y +
+//       sin(dir + lado * HALF_PI) * this.radio;
 
-  //     this.angulo = atan2(
-  //       this.y - this.cy,
-  //       this.x - this.cx
-  //     );
+//     this.angulo = atan2(
+//       this.y - this.cy,
+//       this.x - this.cx
+//     );
 
-  //     this.velAngular =
-  //       random(0.02, 0.06) * lado;
-  //   }
+//     this.velAngular =
+//       random(0.02, 0.06) * lado;
+//   }
 
 
- // else if (this.estado === "curva-circular") {
+// else if (this.estado === "curva-circular") {
 
-    //   this.angulo += this.velAngular;
+//   this.angulo += this.velAngular;
 
-    //   this.x = this.cx + this.radio * cos(this.angulo);
-    //   this.y = this.cy + this.radio * sin(this.angulo);
+//   this.x = this.cx + this.radio * cos(this.angulo);
+//   this.y = this.cy + this.radio * sin(this.angulo);
 
-    //   this.radio += random(1, 2);
-    // }
+//   this.radio += random(1, 2);
+// }

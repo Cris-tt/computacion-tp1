@@ -5,9 +5,9 @@ function setup() {
   background(239, 237, 233);
 
   bandas = [
-    height * 0.15,
+ 
     height * 0.30,
-    height * 0.45,
+
     height * 0.65
   ];
   bandasActivas = shuffle([...bandas]).slice(0, 2);
