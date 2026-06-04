@@ -27,6 +27,9 @@ function setup() {
   }
   c = new Caminante;
 
+  // Líneas fijas (se dibujan una sola vez sobre el fondo)
+  dibujarLineasFijas(8); // ajustá la cantidad a gusto
+
   mic = new p5.AudioIn(); // se cominca con la entrada de audio del microfono
   mic.start(); // se inicia el flujo de audio desde el microfono
 }
