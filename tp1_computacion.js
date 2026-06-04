@@ -1,17 +1,22 @@
+//Microfono
+let mic;
 
+//amplitud
+let amp;
 
 function setup() {
   createCanvas(1200, 700);
   background(239, 237, 233);
 
   bandas = [
- 
+    height * 0.15,
     height * 0.30,
-
+    height * 0.45,
     height * 0.65
   ];
-  bandasActivas = shuffle([...bandas]).slice(0, 2);
 
+
+  elegirBandasActivas(); //funcion que le da un carril por el que pasar a las lineas
 
 
   for (let i = 0; i < random(20, 25); i++) {
@@ -22,10 +27,16 @@ function setup() {
   }
   c = new Caminante;
 
+  mic = new p5.AudioIn(); // se cominca con la entrada de audio del microfono
+  mic.start(); // se inicia el flujo de audio desde el microfono
 }
 
 
 function draw() {
+
+  amp = mic.getLevel(); // se obtiene el nivel de amplitud del audio
+
+
   for (let c of caminantes) {
 
     c.actualizar();
